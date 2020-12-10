@@ -3,8 +3,10 @@ package edu.handong.csee.java.examples.thread.lab;
 import java.util.ArrayList;
 
 public class SumMultipleThreads {
+	
 
 	public static void main(String[] args) {
+		
 
 		long to = 10000000;
 		ArrayList<SumRunner> sumRunners = new ArrayList<SumRunner>();
@@ -32,6 +34,21 @@ public class SumMultipleThreads {
 		}
 
 		long grandTotal = 0;
+		int i = 0;
+		
+		
+		threadsForSubSum.trimToSize();
+		
+		while(i<threadsForSubSum.size()) {
+			
+			try {
+				threadsForSubSum.get(i).join();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			i++;
+		}
+		
 		for(SumRunner runner:sumRunners) {
 			grandTotal += runner.totalSum;
 		}
